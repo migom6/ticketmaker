@@ -4,7 +4,13 @@ import { TicketDB } from "models/Ticket";
 const baseUrl = process.env.VERCEL_URL;
 
 async function getTickets(): Promise<{ data: TicketDB[] }> {
-  const response = await fetch(`${baseUrl}/api/tickets`, { cache: "no-store" });
+  const _baseUrl = !baseUrl
+    ? "http://localhost:3000"
+    : `https://${process.env.VERCEL_URL}`;
+
+  const response = await fetch(`${_baseUrl}/api/tickets`, {
+    cache: "no-store",
+  });
   return response.json();
 }
 
