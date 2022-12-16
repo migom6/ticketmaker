@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -6,8 +7,8 @@ export interface ElementMeta {
   value: string;
   posX: number;
   posY: number;
-  font: string;
   fontSize: number;
+  style: CSSProperties;
 }
 
 interface ControllerState extends Omit<ElementMeta, "id"> {
@@ -21,9 +22,10 @@ const useController = create<ControllerState>()(
     posX: 0,
     posY: 0,
     font: "",
+    style: {},
     fontSize: 14,
     mutate: (payload) => set({ ...payload }),
-    reset: () => set({ value: "", posX: 0, posY: 0, font: "", fontSize: 14 }),
+    reset: () => set({ value: "", posX: 0, posY: 0, fontSize: 14 }),
   }))
 );
 

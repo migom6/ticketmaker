@@ -34,32 +34,30 @@ export default function Toolbar() {
       });
     }
   };
-  const handleGenerate: MouseEventHandler<HTMLButtonElement> =
-    useCallback(() => {
-      const result = generate(
-        elements,
-        csvData,
-        imageUrl,
-        templateHeight,
-        templateWidth
-      );
-      const filename = "data.json";
-      const jsonStr = JSON.stringify(result);
-
-      let element = document.createElement("a");
-      element.setAttribute(
-        "href",
-        "data:text/plain;charset=utf-8," + encodeURIComponent(jsonStr)
-      );
-      element.setAttribute("download", filename);
-
-      element.style.display = "none";
-      document.body.appendChild(element);
-
-      element.click();
-
-      document.body.removeChild(element);
-    }, [elements, csvData, imageUrl, templateHeight, templateWidth]);
+  const handleGenerate = useCallback(async () => {
+    const results = generate(
+      elements,
+      csvData,
+      imageUrl,
+      templateHeight,
+      templateWidth
+    );
+    try {
+      await fetch("/api/tickets", {
+        method: "DELETE",
+      });
+      await fetch("/api/tickets", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: results }),
+      });
+    } catch (e) {
+      alert("some error occured");
+    }
+  }, [elements, csvData, imageUrl, templateHeight, templateWidth]);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 h-20 flex justify-center items-center rounded-sm shadow-md drop-shadow-md">

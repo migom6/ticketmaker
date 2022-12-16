@@ -26,3 +26,5 @@ export default function generate(
   });
   return result.slice(1);
 }
+
+export type TicketType = ReturnType<typeof generate>[0];

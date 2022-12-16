@@ -1,15 +1,18 @@
 import Renderer from "components/Renderer";
-import _ticketElements from "public/data.json";
+import { TicketDB } from "models/Ticket";
 
-async function getTickets() {
-  return _ticketElements;
+const baseUrl = process.env.VERCEL_URL;
+
+async function getTickets(): Promise<{ data: TicketDB[] }> {
+  const response = await fetch(`${baseUrl}/api/tickets`);
+  return response.json();
 }
 
 export default async function Page() {
-  const tickets = await getTickets();
+  const response = await getTickets();
   return (
     <div className="flex flex-col gap-5">
-      {tickets.map((ticket, index) => (
+      {response.data.map((ticket, index) => (
         <Renderer
           key={index}
           elements={ticket.elements}

@@ -1,19 +1,19 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import useController from "stores/controller";
 import useRender from "stores/render";
 import { guidGenerator } from "utils/guidGenerator";
 
 const Form = () => {
-  const { value, posX, posY, font, fontSize, mutate, reset } = useController(
+  const { value, posX, posY, fontSize, mutate, reset, style } = useController(
     useCallback(
       (store) => ({
         value: store.value,
         posX: store.posX,
         posY: store.posY,
-        font: store.font,
         fontSize: store.fontSize,
+        style: store.style,
         mutate: store.mutate,
         reset: store.reset,
       }),
@@ -32,6 +32,8 @@ const Form = () => {
     )
   );
 
+  const [styleValue, setStyleValue] = useState(JSON.stringify(style));
+
   const handleSave = () => {
     if (value.length === 0) {
       alert("value cannot be empty");
@@ -42,7 +44,7 @@ const Form = () => {
       focused: false,
       elements: [
         ...elements,
-        { id: guidGenerator(), value, posX, posY, font, fontSize },
+        { id: guidGenerator(), value, posX, posY, fontSize, style },
       ],
     });
   };
@@ -99,18 +101,6 @@ const Form = () => {
         />
       </div>
       <div className="flex flex-col gap-1 text-sm">
-        <label>Font</label>
-        <select
-          className="form-select appearance-none block w-60 px-3 py-1.5 text-base font-normal  text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          aria-label="Default select example"
-        >
-          <option selected>Font family</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div className="flex flex-col gap-1 text-sm">
         <label>Font Size</label>
 
         <input
@@ -121,6 +111,27 @@ const Form = () => {
             mutate({ fontSize: parseInt(e.target.value) });
           }}
         />
+      </div>
+      <div className="flex flex-col gap-1 text-sm">
+        <label>Style</label>
+        <div className="flex gap-5  items-end">
+          <textarea
+            rows={5}
+            className="form-select appearance-none block w-36 px-3 py-1.5 text-base font-normal  text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            value={styleValue}
+            onChange={(e) => {
+              setStyleValue(e.target.value);
+            }}
+          />
+          <button
+            className="border h-fit px-2 py-1 rounded-md bg-blue-50 drop-shadow-sm hover:drop-shadow-none"
+            onClick={() => {
+              mutate({ style: JSON.parse(styleValue) });
+            }}
+          >
+            set
+          </button>
+        </div>
       </div>
       {focused && (
         <div className="flex justify-between">

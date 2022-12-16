@@ -33,13 +33,13 @@ const Renderer: FC<Props> = ({
     x: number;
     y: number;
   } | null>(null);
-  const { value, posX, posY, font, fontSize, mutate } = useController(
+  const { value, posX, posY, style, fontSize, mutate } = useController(
     useCallback(
       (store) => ({
         value: store.value,
         posX: store.posX,
         posY: store.posY,
-        font: store.font,
+        style: store.style,
         fontSize: store.fontSize,
         mutate: store.mutate,
       }),
@@ -105,6 +105,7 @@ const Renderer: FC<Props> = ({
             top: selectedPos.y,
             left: selectedPos.x,
             fontSize,
+            ...style,
           }}
         >
           {value.length > 0 ? value : "Your Text Here"}
@@ -123,6 +124,7 @@ const Renderer: FC<Props> = ({
               top: e.posY,
               left: e.posX,
               fontSize: e.fontSize,
+              ...e.style,
             }}
           >
             {e.value}
