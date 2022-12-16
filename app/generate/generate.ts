@@ -14,7 +14,7 @@ export default function generate(
       if (findIndex === -1) {
         return { ...e };
       }
-      return { ...e, value: row[findIndex] };
+      return { ...e, value: row[findIndex].toUpperCase() };
     });
     return {
       imageUrl: imageUrl,
