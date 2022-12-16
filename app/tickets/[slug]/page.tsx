@@ -1,7 +1,7 @@
 import Renderer from "components/Renderer";
 import { TicketDB } from "models/Ticket";
 
-const baseUrl = process.env.HOST_URL ?? process.env.VERCEL_URL;
+const baseUrl = process.env.VERCEL_URL;
 
 async function getTickets(): Promise<{ data: TicketDB[] }> {
   const response = await fetch(`${baseUrl}/api/tickets`, { cache: "no-store" });
