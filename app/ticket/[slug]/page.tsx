@@ -11,7 +11,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!ticket) return <div>not found</div>;
   return (
     <div className="flex flex-col gap-5">
-      <Renderer elements={ticket.elements} imageUrl={ticket.imageUrl} />
+      <Renderer
+        elements={ticket.elements}
+        imageUrl={ticket.imageUrl}
+        templateWidth={ticket.templateWidth}
+        templateHeight={ticket.templateHeight}
+      />
     </div>
   );
 }
