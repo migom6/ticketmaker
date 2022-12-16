@@ -51,8 +51,12 @@ const Form = () => {
     mutateRender({ focused: false, elements: [] });
   };
 
+  const cssContainer = focused ? "" : "opacity-50 pointer-events-none";
+
   return (
-    <div className="flex flex-col gap-2 rounded-md bg-gray-100 p-5 w-[360px] drop-shadow-md shadow-md">
+    <div
+      className={`flex flex-col gap-2 rounded-md bg-gray-100 p-5 w-[360px] drop-shadow-md shadow-md ${cssContainer}`}
+    >
       <div className="flex justify-between items-center">
         <span className="font-semibold text-xl">Settings</span>
         <button
@@ -119,18 +123,31 @@ const Form = () => {
         />
       </div>
       {focused && (
-        <button
-          onClick={handleSave}
-          className="relative inline-block px-3 py-1 font-medium group w-fit mt-5"
-        >
-          <span className="absolute inset-0 h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0" />
-          <span className="absolute inset-0 h-full bg-white border-2 border-black group-hover:bg-black" />
-          <span className="relative text-black text-sm group-hover:text-white">
-            Save
-          </span>
-        </button>
+        <div className="flex justify-between">
+          <button
+            onClick={() => {
+              mutateRender({ focused: false });
+            }}
+            className="relative inline-block px-3 py-1 font-medium group w-fit mt-5"
+          >
+            <span className="absolute inset-0 h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0" />
+            <span className="absolute inset-0 h-full bg-white border-2 border-black group-hover:bg-black" />
+            <span className="relative text-black text-sm group-hover:text-white">
+              Unselect
+            </span>
+          </button>
+          <button
+            onClick={handleSave}
+            className="relative inline-block px-3 py-1 font-medium group w-fit mt-5"
+          >
+            <span className="absolute inset-0 h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0" />
+            <span className="absolute inset-0 h-full bg-white border-2 border-black group-hover:bg-black" />
+            <span className="relative text-black text-sm group-hover:text-white">
+              Save
+            </span>
+          </button>
+        </div>
       )}
-      {!focused && <span>Tap on the canvas</span>}
     </div>
   );
 };

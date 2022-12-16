@@ -16,9 +16,17 @@ interface Props {
   editable?: boolean;
   elements: ElementMeta[];
   imageUrl: string;
+  templateWidth: number;
+  templateHeight: number;
 }
 
-const Renderer: FC<Props> = ({ editable = false, elements, imageUrl }) => {
+const Renderer: FC<Props> = ({
+  editable = false,
+  elements,
+  imageUrl,
+  templateWidth,
+  templateHeight,
+}) => {
   const templateDivRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedPos, setSelectedPos] = useState<{
@@ -44,6 +52,8 @@ const Renderer: FC<Props> = ({ editable = false, elements, imageUrl }) => {
         elements: store.elements,
         focused: store.focused,
         mutateRender: store.mutate,
+        templateHeight: store.templateHeight,
+        templateWidth: store.templateWidth,
       }),
       []
     )
@@ -83,9 +93,10 @@ const Renderer: FC<Props> = ({ editable = false, elements, imageUrl }) => {
     <div
       ref={templateDivRef}
       onClick={editable ? insertText : undefined}
-      className={"relative cursor-crosshair overflow-hidden h-fit w-fit"}
+      className={"relative cursor-crosshair overflow-hidden bg-yellow-50"}
+      style={{ width: templateWidth, height: templateHeight }}
     >
-      <Image src={imageUrl} alt="template" width={624} height={245} />
+      <Image src={imageUrl} alt="template" fill />
 
       {focused && selectedPos && (
         <span

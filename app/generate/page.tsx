@@ -12,7 +12,7 @@ export default async function Page() {
   const recentPosts = await getPosts();
   // Forward fetched data to your Client Component
   return (
-    <div className="flex gap-20 h-screen p-20 items-center">
+    <div className="flex gap-20 h-screen p-20 items-center justify-center">
       <Canvas />
       <Form />
       <Toolbar />

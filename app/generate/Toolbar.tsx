@@ -10,11 +10,13 @@ import useRender from "stores/render";
 import generate from "./generate";
 
 export default function Toolbar() {
-  const { elements, imageUrl } = useRender(
+  const { elements, imageUrl, templateHeight, templateWidth } = useRender(
     useCallback(
       (store) => ({
         elements: store.elements,
         imageUrl: store.imageUrl,
+        templateHeight: store.templateHeight,
+        templateWidth: store.templateWidth,
       }),
       []
     )
@@ -34,7 +36,13 @@ export default function Toolbar() {
   };
   const handleGenerate: MouseEventHandler<HTMLButtonElement> =
     useCallback(() => {
-      const result = generate(elements, csvData, imageUrl);
+      const result = generate(
+        elements,
+        csvData,
+        imageUrl,
+        templateHeight,
+        templateWidth
+      );
       const filename = "data.json";
       const jsonStr = JSON.stringify(result);
 
@@ -51,7 +59,7 @@ export default function Toolbar() {
       element.click();
 
       document.body.removeChild(element);
-    }, [elements, csvData, imageUrl]);
+    }, [elements, csvData, imageUrl, templateHeight, templateWidth]);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 h-20 flex justify-center items-center rounded-sm shadow-md drop-shadow-md">

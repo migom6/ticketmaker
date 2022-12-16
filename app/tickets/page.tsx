@@ -14,6 +14,8 @@ export default async function Page() {
           key={index}
           elements={ticket.elements}
           imageUrl={ticket.imageUrl}
+          templateHeight={ticket.templateHeight}
+          templateWidth={ticket.templateWidth}
         />
       ))}
     </div>
