@@ -1,13 +1,18 @@
 import Renderer from "components/Renderer";
-import _ticketElements from "public/data.json";
+import { TicketDB } from "models/Ticket";
 
-async function getTickets(params: string) {
-  const index = parseInt(params);
-  return _ticketElements.find((_, _index) => index === _index);
+const baseUrl = process.env.VERCEL_URL;
+
+async function getTickets(): Promise<{ data: TicketDB[] }> {
+  const response = await fetch(`${baseUrl}/api/tickets`);
+  return response.json();
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const ticket = await getTickets(params.slug);
+  const response = await getTickets();
+  const ticket = response.data.find(
+    (_, index) => index + 1 === parseInt(params.slug as string)
+  );
   if (!ticket) return <div>not found</div>;
   return (
     <div className="flex flex-col gap-5">

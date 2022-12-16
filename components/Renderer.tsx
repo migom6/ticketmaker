@@ -113,7 +113,7 @@ const Renderer: FC<Props> = ({
       )}
       {elements.map((e) => {
         const css = editable
-          ? "absolute hover:border hover:border-dashed"
+          ? "absolute hover:border hover:border-dashed "
           : "absolute";
         return (
           <span

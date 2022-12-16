@@ -17,9 +17,11 @@ export default async function handler(
   switch (method) {
     case "GET":
       try {
-        const ticket = await Ticket.findOne({
-          id: id,
-        }); /* find all the data in our database */
+        const tickets = await Ticket.find({});
+        const ticket = tickets.find(
+          (_, index) => index === parseInt(id as string) + 1
+        );
+        /* find all the data in our database */
         res.status(200).json({ success: true, data: ticket });
       } catch (error) {
         res.status(400).json({ success: false });
