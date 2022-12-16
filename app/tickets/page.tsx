@@ -1,11 +1,13 @@
 import Renderer from "components/Renderer";
 import { TicketDB } from "models/Ticket";
+import { resolve } from "path";
 
 const baseUrl = process.env.VERCEL_URL;
 
 async function getTickets(): Promise<{ data: TicketDB[] }> {
-  const response = await fetch(`${baseUrl}/api/tickets`);
-  return response.json();
+  // const response = await fetch(`${baseUrl}/api/tickets`);
+  // return response.json();
+  return Promise.resolve({ data: [] });
 }
 
 export default async function Page() {
