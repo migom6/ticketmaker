@@ -21,13 +21,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
   );
   if (!ticket) return <div>not found</div>;
   return (
-    <div className="flex flex-col gap-5">
-      <Renderer
-        elements={ticket.elements}
-        imageUrl={ticket.imageUrl}
-        templateWidth={ticket.templateWidth}
-        templateHeight={ticket.templateHeight}
-      />
+    <div className="flex md:justify-center md:h-screen md:mt-20">
+      <div className="w-fit h-fit rounded-md bg-gradient-to-r from-green-500 to-yellow-500 via-orange-500 background-animate p-[5px] drop-shadow-md shadow-md rotatedown">
+        <Renderer
+          elements={ticket.elements}
+          imageUrl={ticket.imageUrl}
+          templateWidth={ticket.templateWidth}
+          templateHeight={ticket.templateHeight}
+        />
+      </div>
     </div>
   );
 }
