@@ -1,0 +1,18 @@
+{
+  "name": "cropper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "image-size": "^1.0.2",
+    "puppeteer": "^19.4.1",
+    "sharp": "^0.31.2"
+  }
+}

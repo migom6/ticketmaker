@@ -16,7 +16,7 @@ async function getTickets(): Promise<{ data: TicketDB[] }> {
 export default async function Page() {
   const response = await getTickets();
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col">
       {response.data.map((ticket, index) => (
         <Renderer
           key={index}
