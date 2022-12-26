@@ -23,7 +23,7 @@ const Index = ({ persons }: { persons: PersonType[] }) => {
   };
 
   return (
-    <div className="flex flex-col max-w-md m-1 border">
+    <div className="flex flex-col max-w-lg m-1 border">
       <button
         onClick={handleExport}
         className="bg-blue-500 text-white font-bold  py-2 px-2 rounded focus:outline-none m-5"
@@ -31,12 +31,13 @@ const Index = ({ persons }: { persons: PersonType[] }) => {
         Export
       </button>
       <table className="w-full">
-        <thead className="">
+        <thead className="border-b">
           <tr>
-            <th>Ticket No</th>
-            <th>Name</th>
-            <th>Visited</th>
-            <th>Food</th>
+            <th className="text-right border-r px-2">Ticket No</th>
+            <th className="text-right border-r px-2">Name</th>
+            <th className="text-right border-r px-2">Visited</th>
+            <th className="text-right border-r px-2">Food Available</th>
+            <th className="text-right border-r px-2">Food Delivered</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +55,13 @@ const Index = ({ persons }: { persons: PersonType[] }) => {
                 </td>
                 <td className="text-right border-r px-2">
                   {person.includesFood ? (
+                    <span className="text-green-500">Yes</span>
+                  ) : (
+                    <span className="text-red-500">No</span>
+                  )}
+                </td>
+                <td className="text-right border-r px-2">
+                  {person.hadFood ? (
                     <span className="text-green-500">Yes</span>
                   ) : (
                     <span className="text-red-500">No</span>
