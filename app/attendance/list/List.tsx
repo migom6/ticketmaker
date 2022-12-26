@@ -23,21 +23,21 @@ const Index = ({ persons }: { persons: PersonType[] }) => {
   };
 
   return (
-    <div className="flex flex-col max-w-lg m-1 border">
+    <div className="flex flex-col m-1 w-lg">
       <button
         onClick={handleExport}
-        className="bg-blue-500 text-white font-bold  py-2 px-2 rounded focus:outline-none m-5"
+        className="bg-blue-500 text-white font-bold  py-2 px-2 rounded focus:outline-none m-5 w-[300px] self-center"
       >
         Export
       </button>
       <table className="w-full">
         <thead className="border-b">
           <tr>
-            <th className="text-right border-r px-2">Ticket No</th>
-            <th className="text-right border-r px-2">Name</th>
-            <th className="text-right border-r px-2">Visited</th>
-            <th className="text-right border-r px-2">Food Available</th>
-            <th className="text-right border-r px-2">Food Delivered</th>
+            <th className="text-right border-r px-1 text-sm">No</th>
+            <th className="text-right border-r px-1 text-sm">Name</th>
+            <th className="text-right border-r px-1 text-sm">Visited</th>
+            <th className="text-right border-r px-1 text-sm">Food Available</th>
+            <th className="text-right border-r px-1 text-sm">Food Delivered</th>
           </tr>
         </thead>
         <tbody>
