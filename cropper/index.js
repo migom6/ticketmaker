@@ -11,7 +11,7 @@ let originalImage = "originalImage.jpg";
 let outputImage = "croppedImage.jpg";
 
 let outputConcat = "";
-
+const folder = "tickets_exclusive";
 const ticketWidth = 990;
 const ticketHeight = 320;
 
@@ -40,7 +40,7 @@ async function run() {
         top: newTop,
       })
       .png()
-      .toFile(`./tickets/${imageIndex + 1}.png`);
+      .toFile(`./${folder}/${imageIndex + 1}.png`);
   };
 
   var remainingTop = dimensions.height;
