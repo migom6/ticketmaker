@@ -7,7 +7,25 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const [ticket, setTicket] = useState<null | number>(null);
   const [person, setPerson] = useState<null | PersonType>(null);
+  const [stats, setStats] = useState<null | {
+    registered: number;
+    visited: number;
+    hadFood: number;
+    includesFood: number;
+  }>();
+
   const [loading, setLoading] = useState(false);
+
+  async function getStats() {
+    try {
+      const res = await fetch(`/api/stats`);
+      const jsonData = await res.json();
+      setStats(jsonData.data);
+    } catch (e) {
+      alert("contact migom");
+    } finally {
+    }
+  }
 
   useEffect(() => {
     if (!ticket) {
@@ -28,6 +46,10 @@ export default function Page() {
     })();
   }, [ticket]);
 
+  useEffect(() => {
+    getStats();
+  }, []);
+
   const handleFood = async () => {
     if (!ticket) return;
     try {
@@ -40,6 +62,7 @@ export default function Page() {
         body: JSON.stringify({ hadFood: true }),
       });
       alert("success");
+      getStats();
     } catch (e) {
       alert("contact migom6");
     } finally {
@@ -59,6 +82,7 @@ export default function Page() {
         body: JSON.stringify({ visited: true }),
       });
       alert("success");
+      getStats();
     } catch (e) {
       alert("contact migom6");
     } finally {
@@ -68,7 +92,35 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center pt-10 h-screen">
+      {stats && (
+        <div className="flex gap-4 mb-5 mx-8">
+          <div className="shadow border p-2 rounded-md">
+            <div className="stat">
+              <div className="stat-title text-sm">Total Registered</div>
+              <div className="stat-value font-semibold text-blue-600">
+                {stats.registered}
+              </div>
+            </div>
+          </div>
+          <div className="shadow border p-2 rounded-md">
+            <div className="stat">
+              <div className="stat-title  text-sm">Total Visited</div>
+              <div className="stat-value font-semibold text-blue-600">
+                {stats.visited}
+              </div>
+            </div>
+          </div>
+          <div className="shadow border p-2 rounded-md">
+            <div className="stat">
+              <div className="stat-title  text-sm">Total Food delivered</div>
+              <div className="stat-value font-semibold text-blue-600">
+                {stats.hadFood} / {stats.includesFood}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="w-full max-w-xs">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
